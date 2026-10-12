@@ -1,0 +1,3 @@
+import {faqs} from '@/lib/faq';
+import {Eyebrow,headingClass,sectionClass} from './ui';
+export function Faq(){return <section id="preguntas-frecuentes" aria-labelledby="faq-title" className={`${sectionClass} bg-white`}><Eyebrow>ANTES DE EMPEZAR</Eyebrow><h2 id="faq-title" className={headingClass}>Resolvemos tus <mark>dudas</mark></h2><div className="mt-7 divide-y divide-black/10">{faqs.map(f=><details key={f.question} className="group py-5"><summary className="cursor-pointer text-base font-bold marker:text-[#a68400]">{f.question}</summary><p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-700">{f.answer}</p></details>)}</div></section>}

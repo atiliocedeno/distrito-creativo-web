@@ -1,0 +1,14 @@
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import {servicePages} from '@/lib/service-pages';
+import {pageMetadata,organization,absolute} from '@/lib/seo';
+import {JsonLd} from '@/components/seo/json-ld';
+import {EditorialShell} from '@/components/editorial-shell';
+import {articles} from '@/lib/articles';
+export const dynamicParams=false;
+export function generateStaticParams(){return servicePages.map(s=>({slug:s.slug}));}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const s=servicePages.find(s=>s.slug===slug);if(!s)notFound();return pageMetadata(`${s.name} | Distrito Creativo`,s.short,`/servicios/${s.slug}`);}
+export default async function ServicePage({params}:{params:Promise<{slug:string}>}){
+ const {slug}=await params;const s=servicePages.find(s=>s.slug===slug);if(!s)notFound();
+ return <EditorialShell><JsonLd data={{'@context':'https://schema.org','@graph':[organization(),{'@type':'Service',name:s.name,serviceType:s.name,description:s.detail,url:absolute(`/servicios/${slug}`),provider:{'@id':absolute('/#organizacion')??'#organizacion'}}]}}/><article className="mx-auto max-w-5xl px-6 py-12 sm:py-20"><nav aria-label="Ruta de navegación" className="mb-8 text-sm text-neutral-600"><Link href="/">Inicio</Link> / <Link href="/#servicios">Servicios</Link> / {s.name}</nav><span className="rounded-full bg-brand px-4 py-2 text-xs font-bold">SERVICIOS · DISTRITO CREATIVO</span><h1 className="mt-7 max-w-4xl text-4xl leading-tight tracking-tight sm:text-6xl">{s.name}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-neutral-700">{s.detail}</p><section className={`mt-10 rounded-2xl p-7 ${s.tone}`}><h2 className="text-2xl">Qué podemos trabajar contigo</h2><ul className="mt-5 list-disc space-y-4 pl-5 leading-7">{s.scope.map(item=><li key={item}>{item}</li>)}</ul></section><h2 className="mt-10 text-2xl">Cuéntanos qué necesita tu marca</h2><p className="mt-4 leading-7 text-neutral-700">Comparte tus objetivos, los canales que utilizas y las piezas que necesitas. Así podremos conversar sobre el alcance de tu proyecto.</p><a href="https://wa.me/56961034681" className="mt-6 inline-flex rounded-full bg-brand px-7 py-4 font-bold" target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp ↗</a><h2 className="mt-12 text-2xl">Explora otros servicios</h2><ul className="mt-5 flex flex-wrap gap-3">{servicePages.filter(other=>other.slug!==slug).map(other=><li key={other.slug}><Link href={`/servicios/${other.slug}`} className="inline-block rounded-full border border-black/15 px-4 py-2 underline-offset-4 hover:underline">{other.name}</Link></li>)}</ul>{articles.filter(a=>a.service===slug).map(a=><p key={a.slug} className="mt-8"><Link className="font-bold underline underline-offset-4" href={`/blog/${a.slug}`}>Lee la guía: {a.title} ↗</Link></p>)}</article></EditorialShell>;
+}

@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.env*
+.DS_Store
+
+!.env.example
+
+# Archivos locales, credenciales y registros
+.vercel/
+.openai/
+*.log
+*.pem
+*.key
+coverage/

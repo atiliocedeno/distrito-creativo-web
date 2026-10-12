@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-dm-sans), Arial, sans-serif;
+  --font-display: var(--font-inter), Arial, sans-serif;
+  --color-brand: #ffce00;
+  --color-ink: #101010;
+  --breakpoint-mobile: 561px;
+  --breakpoint-tablet: 851px;
+  --breakpoint-wide: 1151px;
+}
+
+@layer base {
+  html { @apply scroll-smooth scroll-pt-[90px] motion-reduce:scroll-auto; }
+  body { @apply m-0 font-sans text-sm text-ink antialiased; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  button, a { @apply focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-violet-500; }
+  button { @apply cursor-pointer; }
+  h1, h2, h3 { @apply font-display font-black; }
+  mark { @apply rounded-full bg-brand px-[.16em] text-inherit box-decoration-clone; }
+  h2 mark { @apply relative isolate inline-block whitespace-nowrap rounded-none bg-transparent px-[.16em]; }
+  h2 mark::before { @apply pointer-events-none absolute inset-x-0 bottom-[.04em] -z-10 h-[.88em] rounded-full bg-brand content-['']; }
+}
+
+@theme {
+  --animate-letter-wiggle: letter-wiggle .65s ease-in-out infinite;
+  @keyframes letter-wiggle {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-3px) rotate(-10deg); }
+    75% { transform: translateX(3px) rotate(10deg); }
+  }
+}
