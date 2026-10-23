@@ -39,7 +39,7 @@ Este paquete contiene el proyecto fuente. No se ejecuta abriendo un HTML directa
 ## Funciones conservadas
 
 - Navegación: Inicio, Nosotros, Servicios, Blog, Portafolio; menú móvil y sección activa.
-- WhatsApp: https://wa.me/56961034681.
+- WhatsApp
 - Flechas curvas unificadas y resaltado amarillo ajustado.
 - Servicios desplazables en móvil con enlaces a sus páginas independientes.
 - Formulario con validación nativa, selección de servicios y descarga TXT; **no envía correos ni almacena datos**.
